@@ -1,0 +1,126 @@
+.product-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-grow: 1;
+    box-shadow: 0 0 5px #cccccc;
+    margin: 15px;
+    min-height: 380px;
+    border-radius: 10px;
+    position: relative;
+}
+.product-card:hover{
+    box-shadow: 0 0 20px #cccccc;
+}
+.product-card-img {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+.card-img {
+    width: 80%;
+    padding: 10px 0 0 0;
+    margin: 0;
+}
+.product-card-body {
+    display: flex;
+    padding: 10px 20px;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: flex-start;
+}
+
+.product-price {
+    display: flex;
+    padding: 10px 20px;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: flex-end;
+}
+.product-name {
+    font-size: 14px;
+}
+.product-model {
+    font-size: 18px;
+    font-weight: bold;
+}
+.card-price {
+    font-size: 22px;
+}
+.cart {
+    width: 32px;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    cursor: pointer;
+}
+.new-icon {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 38px;
+}
+.star {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 30px;
+}
+@media (min-width: 768px) and (max-width: 991px) {
+    .product-card {
+        min-height: 400px;
+    }
+    .product-card-body {
+        padding: 10px 20px;
+    }
+    .product-price {
+        padding: 10px 20px;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767px){
+    .product-card {
+        min-height: 430px;
+    }
+    .product-card-body {
+        padding: 10px 20px;
+    }
+    .product-price {
+        padding: 10px 20px;
+    }
+}
+@media (min-width: 0) and (max-width: 575px) {
+    .product-card {
+        min-height: 300px;
+        margin: 10px 50px;
+    }
+    .card-img {
+        width: 70%;
+    }
+    .product-card-body {
+        padding: 10px 20px;
+    }
+    .product-price {
+        padding: 10px 20px;
+    }
+    .product-name {
+        font-size: 14px;
+    }
+    .product-model {
+        font-size: 18px;
+    }
+    .card-price {
+        font-size: 20px;
+        color: #BD1522;
+    }
+    .cart {
+        bottom: 15px;
+        right: 20px;
+    }
+    .star {
+        width: 25px;
+    }
+}

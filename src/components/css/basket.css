@@ -1,0 +1,111 @@
+.basket-widget {
+    cursor: pointer;
+    position: relative;
+
+}
+.quantity {
+    position: absolute;
+    bottom: -10px;
+    right: -5px;
+    background: url("../img/cart-quant.png") center center no-repeat;
+    background-size: contain;
+    color: white;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+}
+.basket .modal-dialog {
+    max-width: 70%;
+}
+.basket .modal-body {
+    position: relative;
+}
+.basket .collection-item-list {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #cccccc;
+    border-radius: 10px;
+    box-shadow: 0 0 5px #cccccc;
+}
+.basket .collection-item-list li:first-child {
+    flex-basis: 15%;
+}
+.basket .collection-item-list li:first-child img {
+    width: 100%;
+}
+.basket .collection-item-list li:nth-child(2) {
+    flex-basis: 35%;
+}
+.basket .collection-item-list li:nth-child(3) {
+
+    text-align: center;
+}
+.basket .collection-item-list li:nth-child(3) i{
+    padding: 5px;
+    cursor: pointer;
+    color: #6c757d;
+}
+.basket .collection-item-list li:nth-child(4) {
+    flex-basis: 20%;
+}
+.basket .collection-item-list li:nth-child(5) i {
+    cursor: pointer;
+    color: red;
+}
+.basket .modal-footer {
+    flex-wrap: wrap;
+}
+.basket .total-price {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin: 20px 10px;
+    font-weight: bold;
+}
+@media (min-width: 576px) and (max-width: 767px){
+
+    .basket .modal-dialog {
+        max-width: 100%;
+    }
+}
+
+@media (min-width: 0) and (max-width: 575px) {
+
+    .basket .modal-dialog {
+        max-width: 100%;
+    }
+    .basket .modal-dialog {
+        font-size: 14px;
+    }
+    .basket .modal-title, .basket .modal-footer .btn {
+        font-size: 16px;
+    }
+    .basket .collection-item-list li:nth-child(3) {
+        flex-basis: 15%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .basket .collection-item-list li:nth-child(3) i {
+        padding: 0;
+    }
+    .basket .collection-item-list li:nth-child(4) {
+        flex-basis: 25%;
+    }
+    .quantity {
+        font-size: 14px;
+        width: 18px;
+        height: 18px;
+        bottom: -10px;
+        right: -2px;
+    }
+}
+
+

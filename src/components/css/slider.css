@@ -1,0 +1,172 @@
+.slider-home {
+    margin: 30px 0 20px 0;
+    padding: 0;
+    position: relative;
+    z-index: 1;
+    color: white;
+}
+.slider-home .slide img {
+    width: 100%;
+}
+.slider-home .slide {
+    position: relative;
+}
+.slider-home .slick-dots{
+    bottom: 1px;
+}
+.slider-home .slick-dots li button:before {
+    font-size: 8px;
+    color: white;
+    opacity: .5;
+    content: '•';
+}
+.slider-home .slick-dots li.slick-active button:before {
+    opacity: 1;
+    color: white;
+}
+.slider-home .slick-next{
+    right: 25px;
+}
+.slider-home .slick-prev  {
+    left: 25px;
+    z-index: 6;
+}
+.slider-home .slick-next:before, .slider-home .slick-prev:before {
+    font-size: 30px;
+}
+.slider-home .elips {
+    background-image: url("../img/red-elips.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.slider-home .elips h1 {
+    font-size: 70px;
+    text-align: center;
+    padding: 10px 0;
+}
+.slider-home .line {
+    height: 2px;
+    background-color: white;
+    width: 360px;
+    margin: 10px 0;
+}
+.slider-home .elips p {
+    color: white;
+    font-size: 18px;
+    padding: 20px 0;
+}
+.slider-home .elips a {
+    color: black;
+    font-size: 22px;
+    font-weight: 600;
+    background-color: white;
+    padding: 10px 50px;
+}
+.slider-home .elips a:hover {
+    box-shadow: 0 0 10px #cccccc;
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+    .slider-home .elips h1 {
+        padding: 10px 0 5px 0;
+        font-size: 58px;}
+    .slider-home .line {
+        width: 290px;
+    }
+    .slider-home .elips p {
+       padding: 10px 0;
+    }
+    .slider-home .elips span {
+         margin-top: 10px;
+    }
+    .slider-home .elips a {
+        font-size: 15px;
+        padding: 10px 30px;
+    }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+    .slider-home .elips h1 {
+        font-size: 48px;
+        padding: 10px 0;}
+    .slider-home .elips p {
+        font-size: 15px;
+        padding: 10px 0;
+    }
+    .slider-home .elips a {
+        font-size: 15px;
+        padding: 5px 30px;
+    }
+    .slider-home .line {
+        width: 240px;
+        margin: 0;
+    }
+    .slider-home .slick-dots li button:before {
+        content: none;
+    }
+}
+@media (min-width: 576px) and (max-width: 767px){
+    .slider-home .elips h1 {
+        font-size: 40px;
+        padding: 0;}
+    .slider-home .elips p {
+        font-size: 14px;
+        padding: 5px 0;
+    }
+   .slider-home .elips a {
+        color: black;
+        font-size: 15px;
+        padding: 5px 30px;
+        margin: 0;
+    }
+    .slider-home .line {
+        width: 240px;
+        margin: 0;
+    }
+    .slider-home .slick-dots li button:before {
+        content: none;
+    }
+}
+@media (min-width: 0) and (max-width: 575px) {
+    .slider-home {
+        margin: 10px 0 ;
+    }
+    .slider-home .elips h1 {
+        font-size: 20px;
+        padding: 0;
+        margin: 0;}
+    .slider-home .elips p {
+        font-size: 10px;
+        padding: 5px 0;
+    }
+   .slider-home .elips a {
+        color: black;
+        font-size: 10px;
+        padding: 2px 20px;
+        margin: 0;
+    }
+    .slider-home .line {
+        width: 100px;
+        margin: 0;
+    }
+    .slider-home .slick-dots li button:before {
+       content: none;
+    }
+    .slider-home .slick-next:before, .slider-home .slick-prev:before {
+        font-size: 20px;
+    }
+    .slider-home .slick-next{
+        right: 5px;
+    }
+    .slider-home .slick-prev  {
+        left: 5px;
+    }
+}

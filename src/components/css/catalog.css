@@ -1,0 +1,132 @@
+.catalog {
+    padding: 20px 0;
+}
+.catalog-list {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    position: relative;
+}
+.catalog-item img{
+    width: 100%;
+}
+.catalog-item{
+    height: 50%;
+    width: 25%;
+    position: relative;
+    padding: 10px;
+    border-radius: 5px;
+
+}
+.catalog-item:first-child {
+    width: 50%;
+    height: 100%;
+}
+.catalog-item:nth-child(5) {
+    position: absolute;
+    top: 50%;
+    right: 0;
+}
+.catalog-item:nth-child(4) {
+    position: absolute;
+    top: 50%;
+    right: 25%;
+}
+.catalog-item p {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    color: white;
+    font-size: 24px;
+}
+.catalog-item:hover{
+    padding: 0;
+    box-shadow: 0 0 10px #000;
+ }
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .catalog-list {
+        justify-content: center;
+        align-items: center;
+    }
+    .catalog-item{
+        height: 40%;
+        width: 40%;
+        position: relative;
+        padding: 10px;
+        border-radius: 5px;
+
+    }
+    .catalog-item:first-child {
+        width: 80%;
+        height: 80%;
+    }
+    .catalog-item:nth-child(5) {
+        position: relative;
+        top: 0;
+        right: 0;
+    }
+    .catalog-item:nth-child(4) {
+        position: relative;
+        top: 0;
+        right: 0;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767px){
+    .catalog-list {
+        justify-content: center;
+        align-items: center;
+    }
+    .catalog-item{
+        height: 48%;
+        width: 48%;
+        position: relative;
+        padding: 10px;
+        border-radius: 5px;
+
+    }
+    .catalog-item:first-child {
+        width: 96%;
+        height: 96%;
+    }
+    .catalog-item:nth-child(5) {
+        position: relative;
+        top: 0;
+        right: 0;
+    }
+    .catalog-item:nth-child(4) {
+        position: relative;
+        top: 0;
+        right: 0;
+    }
+}
+
+@media (min-width: 0) and (max-width: 575px) {
+    .catalog-list {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .catalog-item img {
+        width: 100%;
+    }
+    .catalog-item {
+        height: 80%;
+        width: 80%;
+    }
+    .catalog-item:first-child {
+        width: 80%;
+        height: 80%;
+    }
+    .catalog-item:nth-child(5) {
+        position: relative;
+        top: 0;
+        right: 0;
+    }
+    .catalog-item:nth-child(4) {
+        position: relative;
+        top: 0;
+        right: 0;
+    }
+}

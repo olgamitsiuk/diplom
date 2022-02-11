@@ -1,0 +1,111 @@
+.product-page {
+    padding: 20px 10px;
+    position: relative;
+}
+.product-description h3 {
+    font-size: 28px;
+    line-height: 38px;
+    font-weight: bold;
+}
+.product-description p {
+    font-size: 18px;
+    line-height: 25px;
+}
+.product-description i {
+    position: absolute;
+    top: 35px;
+    right: 20px;
+    font-size: 30px;
+}
+.price {
+    padding: 20px 0;
+}
+.price p {
+    font-size: 28px;
+    line-height: 0.6;
+}
+.price span {
+    display: block;
+ }
+.add-cart {
+    padding: 10px 25px;
+    background-color: #dc3545;;
+    color: white;
+    border-radius: 10px;
+    border: none;
+    font-size: 22px;
+}
+.add-cart:hover {
+    background-color: #BD1522;
+    box-shadow: 0 0 10px #cccccc;
+}
+.wrap-characteristics, .product-img-wrap {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 100%;
+    margin: 20px 0;
+}
+.product-img {
+    flex-basis: 49%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.product-description{
+    flex-basis: 49%;
+}
+.wrap-characteristics h3 {
+    flex-basis: 100%;
+    margin: 20px 0;
+    font-weight: bold;
+}
+.characteristics {
+    flex-basis: 49%;
+    margin-bottom: 20px;
+}
+.wrap-characteristics p {
+    flex-basis: 49%;
+    margin: 10px 0;
+}
+.characteristics li {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc;
+}
+@media (min-width: 0) and (max-width: 991px) {
+    .product-page {
+        padding: 20px;
+        font-size: 16px;
+    }
+    .product-description h3 {
+        font-size: 20px;
+        line-height: 28px;
+    }
+    .product-description p {
+        font-size: 16px;
+        line-height: 20px;
+    }
+    .price p {
+        font-size: 20px;
+        line-height: 0.6;
+    }
+    .product-img {
+        flex-basis: 100%;
+    }
+    .product-description{
+        flex-basis: 100%;
+        font-size: 16px;
+    }
+    .characteristics {
+        flex-basis: 100%;
+    }
+    .wrap-characteristics p {
+        flex-basis: 100%;
+    }
+    .add-cart {
+       padding: 10px 20px;
+       font-size: 18px;
+    }
+}

@@ -1,0 +1,104 @@
+ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.divForm{
+    background-color: white;
+    padding: 20px;
+    margin: 50px auto;
+    width: 50%;
+    border-radius: 10px;
+    border: 1px solid #cccccc;
+    box-shadow: 0 0 10px #cccccc;
+    position: relative;
+}
+.divForm i, .userData i {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+.input-xlarge{
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 2px #ccc;
+    font-size: 18px;
+    padding: 5px;
+}
+.divBtn{
+    display: flex;
+    justify-content: space-between;
+}
+.divBtn .btn-danger, .divBtn .btn-dark{
+    margin: 20px 0 0 0;
+}
+.divBtn .btn-secondary{
+    padding: 0;
+}
+.userData{
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    border: 1px solid #cccccc;
+    box-shadow: 0 0 10px #cccccc;
+    border-radius: 10px;
+    margin: 30px 0;
+    padding: 20px;
+    position: relative;
+}
+.personalData{
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.headerData{
+    display: flex;
+    justify-content: space-between;
+}
+.mainData{
+    padding: 10px 10px 10px 30px;
+}
+.personalDataList{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.personalDataList li{
+    width: 30%;
+    margin: 10px 0;
+    display: flex;
+    flex-direction: column;
+}
+@media (min-width: 768px) and (max-width: 991px) {
+    .divForm{
+        width: 80%;
+    }
+    .personalDataList li{
+        width: 45%;}
+}
+@media (min-width: 0) and (max-width: 767px){
+    .divForm{
+        width: 90%;
+
+    }
+    .userData {
+        width: 90%;
+        margin: 30px auto;
+        height: auto;
+    }
+    .userData h2, .userData h4{
+        font-size: 18px;
+    }
+    .personalDataList li{
+        width: 95%;
+        font-size: 16px;
+    }
+    .headerData {
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+}

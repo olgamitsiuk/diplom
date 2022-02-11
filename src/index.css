@@ -1,0 +1,111 @@
+body {
+  margin: 0;
+  font-family: "Noto Sans";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 18px;
+  color: #333333;
+  /*background-color: #cccccc;*/
+}
+ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+p, a{
+  margin: 0;
+  padding: 0;
+  color: #333333;
+}
+a{
+  text-decoration: none;
+}
+a:hover{
+  color: #BD1522;
+}
+input:focus {
+  outline: none;
+}
+h1{
+  padding: 20px 0;
+  font-size: 28px;
+}
+.app {
+  position: relative;
+}
+.slider-product {
+  width: 40%;
+}
+.slider-product .slick-dots{
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+
+}
+.slider-product .slick-thumb li {
+  width: 30%;
+  height: auto;
+  box-sizing: border-box;
+  padding: 0;
+}
+.slider-product .slick-thumb li a {
+  display: block;
+
+  padding: 0;
+}
+.slider-product .slick-thumb li a img{
+
+}
+.slider-product .slide {
+  width: 100%;
+  margin-bottom: 100px;
+}
+.slider-product .slide img {
+  width: 100%;
+}
+.contact-info {
+  margin: 20px;
+}
+.contact-info h1{
+  margin: 0;
+  padding: 10px 0;
+  font-weight: bold;
+}
+.contact-info h5 {
+  font-weight: bold;
+  font-size: 18px;
+}
+.contact-info p {
+  font-size: 16px;
+}
+.delivery-page{
+  margin: 30px 0;
+}
+.delivery-page h3 {
+  margin: 20px 10px;
+  font-size: 22px;
+  font-weight: bold;
+  text-align: left;
+}
+.delivery-page h5 {
+  margin: 20px 10px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: left;
+}
+.delivery-page img {
+  width: 100%;
+}
+@media (min-width: 0) and (max-width: 991px) {
+  .slider-product {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  .delivery-page h3 {
+
+    font-size: 18px;
+
+  }
+}

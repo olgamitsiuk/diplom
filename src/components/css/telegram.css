@@ -1,0 +1,100 @@
+.telegram {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    margin: 50px 0 70px 0;
+    border-radius: 5px;
+    box-shadow: 0 0 15px #cccccc;
+}
+.telegram img {
+    width: 54%;
+    padding: 0;
+}
+.telegram-body {
+    width: 44%;
+    padding: 20px;
+}
+.form-control{
+    border-radius: 5px;
+    margin: 20px 0;
+}
+.btn-div {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+.btn-div button{
+    background-color: #BD1522;
+    border-radius: 10px;
+    color: white;
+    padding: 10px 20px;
+    margin: 20px 0;
+}
+.btn-div button:hover {
+    box-shadow: 0 0 10px black;
+    color: white;
+}
+@media (min-width: 768px) and (max-width: 991px) {
+    .telegram {
+        width: 80%;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        justify-content: center;
+        margin: 20px auto;
+    }
+    .telegram img {
+        width: 100%;
+        padding: 0;
+    }
+    .telegram-body {
+        width: 100%;
+        padding: 20px;
+    }
+}
+@media (min-width: 576px) and (max-width: 767px){
+    .telegram {
+        width: 96%;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        justify-content: center;
+        margin: 20px auto;
+    }
+    .telegram img {
+        width: 100%;
+        padding: 0;
+    }
+    .telegram-body {
+        width: 100%;
+        padding: 20px;
+    }
+}
+@media (min-width: 0) and (max-width: 575px) {
+    .telegram {
+        width: 96%;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        justify-content: center;
+        margin: 20px auto;
+    }
+    .telegram img {
+        width: 100%;
+        padding: 0;
+    }
+    .telegram-body {
+        width: 100%;
+        padding: 20px;
+    }
+    .form-control{
+        border-radius: 5px;
+        font-size: 16px;
+    }
+    .btn-div button{
+        margin: 10px 0;
+        font-size: 16px;
+    }
+}

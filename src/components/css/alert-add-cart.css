@@ -1,0 +1,23 @@
+.toast-container {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    /*transform: translate(-5%, -5%);*/
+    background-color: white;
+    border: 1px solid #cccccc;
+    box-shadow: 0 0 10px #cccccc;
+    animation: show 500ms ease-in-out;
+    padding: 20px;
+    z-index: 20;
+    text-align: center;
+}
+@keyframes show {
+    from {
+        top: -5%;
+        opacity: 0;
+    }
+    to {
+        top: 0;
+        opacity: 1;
+    }
+}
