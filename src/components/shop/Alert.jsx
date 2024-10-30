@@ -1,21 +1,21 @@
-import {useEffect, useContext} from 'react';
-import {ShopContext} from '../../context';
+import { useEffect, useContext } from 'react';
+import { ShopContext } from '../../context';
 import '../css/alert-add-cart.css';
 
-function Alert () {
-    const { alertName: name = '', closeAlert = Function.prototype} = useContext(ShopContext);
+function Alert() {
+    const { alertName: name = '', closeAlert = Function.prototype } = useContext(ShopContext);
 
     useEffect(() => {
         const timerId = setTimeout(closeAlert, 2000);
 
-        return () => {clearTimeout(timerId)};
+        return () => { clearTimeout(timerId) };
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [name]);
 
     return <div className="toast-container">
-        <div><p>{name} добавлен в корзину</p></div>
+        <div><p>{name} added to cart</p></div>
     </div>
-    }
+}
 
-export {Alert}
+export { Alert }
