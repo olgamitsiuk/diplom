@@ -87,7 +87,7 @@ export default class SliderNew extends Component {
 
         return (
             <div className='slider-small'>
-                <h1>Новинки</h1>
+                <h1>New Arrivals</h1>
                 <Slider {...settings}>
                     {products.map(product => (
                         <div key={product._id}>

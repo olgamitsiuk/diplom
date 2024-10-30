@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { API_URL } from '../../config';
 import '../css/mail.css';
-import {Preloader} from "./Preloader";
+import { Preloader } from "./Preloader";
 
 export default class Mailer extends Component {
 	constructor(props) {
@@ -15,7 +15,7 @@ export default class Mailer extends Component {
 		}
 	}
 	onChange(el) {
-		// тут формируется оперативная реакция системы на ввод пользователя
+		// this forms the system's immediate reaction to user input
 		const mailer_body = this.state.mailer_body;
 		mailer_body[el.target.name] = el.target.value;
 		this.setState({ mailer_body });
@@ -40,7 +40,7 @@ export default class Mailer extends Component {
 			.catch(err => {
 				this.setState({ error: err, isLoaded: true })
 			})
-		alert('Спасибо что подписались на нашу рассылку')
+		alert('Thank you for subscribing to our newsletter')
 	}
 	render() {
 		if (this.state.error) return this.renderError();
@@ -49,16 +49,16 @@ export default class Mailer extends Component {
 	}
 	renderData() {
 		return (
-				<div className="mail">
-				<h4>Подпишитесь <br/> на рассылку:</h4>
-				<input type="mail" name="mail" onChange={this.onChange.bind(this)} placeholder="Введите Ваш e-mail" />
-					<button onClick={this.send.bind(this)} className="btn">Подписаться</button>
-				</div>
+			<div className="mail">
+				<h4>Subscribe <br /> to our newsletter:</h4>
+				<input type="mail" name="mail" onChange={this.onChange.bind(this)} placeholder="Enter your e-mail" />
+				<button onClick={this.send.bind(this)} className="btn">Subscribe</button>
+			</div>
 		);
 	}
 	renderLoading() {
 		return (
-			<Preloader/>
+			<Preloader />
 		)
 	}
 	renderError() {

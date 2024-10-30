@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Slider from "react-slick";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import '../css/slider.css';
@@ -23,37 +23,37 @@ export default class SliderHome extends Component {
                 <Slider {...settings}>
                     <div>
                         <div className='slide'>
-                            <img src={Slider1} alt="alt"/>
+                            <img src={Slider1} alt="alt" />
                             <div className='elips'>
-                                <img src="" alt=""/>
-                                <h1>Ударь <br/>по басам!</h1>
+                                <img src="" alt="" />
+                                <h1>Hit the <br />bass!</h1>
                                 <div className='line'></div>
-                                <p>Распродажа бас-гитарных усилителей</p>
-                                <Link to='product/sale' className='btn'>Выбрать</Link>
+                                <p>Bass guitar amplifiers sale</p>
+                                <Link to='product/sale' className='btn'>Choose</Link>
 
                             </div>
                         </div>
                     </div>
                     <div>
                         <div className='slide'>
-                            <img src={Slider1} alt="alt"/>
+                            <img src={Slider1} alt="alt" />
                             <div className='elips'>
-                                <h1>Время <br/>подарков!</h1>
+                                <h1>Gift <br />season!</h1>
                                 <div className='line'></div>
-                                <p>Более 300 позиций со скидками</p>
-                                <Link to='product/sale' className='btn'>Выбрать</Link>
+                                <p>More than 300 items on sale</p>
+                                <Link to='product/sale' className='btn'>Choose</Link>
 
                             </div>
                         </div>
                     </div>
                     <div>
                         <div className='slide' >
-                            <img src={Slider1} alt="alt"/>
+                            <img src={Slider1} alt="alt" />
                             <div className='elips'>
-                                <h1>Время <br/>подарков!</h1>
+                                <h1>Gift <br />season!</h1>
                                 <div className='line'></div>
-                                <p>Более 300 позиций со скидками</p>
-                                <Link to='product/sale' className='btn'>Выбрать</Link>
+                                <p>More than 300 items on sale</p>
+                                <Link to='product/sale' className='btn'>Choose</Link>
 
                             </div>
                         </div>

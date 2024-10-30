@@ -3,7 +3,7 @@ import { API_URL } from '../../config';
 import '../css/telegram.css';
 import Bot from '../img/bot.png';
 
-export  default class TelegramBot extends React.Component {
+export default class TelegramBot extends React.Component {
 
     constructor(props) {
         super(props);
@@ -17,69 +17,68 @@ export  default class TelegramBot extends React.Component {
             }
         }
     }
-    onChange(el){
+    onChange(el) {
         const message = this.state.message;
-        message[el.target.name]= el.target.value;
-        this.setState({message: message});
+        message[el.target.name] = el.target.value;
+        this.setState({ message: message });
     }
-    send(){
-        this.setState({isLoaded: false});
+    send() {
+        this.setState({ isLoaded: false });
         fetch(API_URL + "sendTelegram",
             {
                 method: 'POST',
-                headers: {'Content-Type': 'application/json'},
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(this.state.message)
             })
-            .then(res=> {
+            .then(res => {
                 console.log("Result: ");
                 console.log(res);
                 return res.json();
             })
-            .then(data =>{
+            .then(data => {
                 console.log(data);
-                this.setState({isLoaded: true});
+                this.setState({ isLoaded: true });
 
             })
-            .catch(err=>{
-                this.setState({error: err, isLoaded: true});
+            .catch(err => {
+                this.setState({ error: err, isLoaded: true });
             });
-        alert('Спасибо что связались с нами')
+        alert('Thank you for contacting us')
     }
-    render(){
-        if(this.state.error) return this.renderError();
-        if(!this.state.isLoaded) return this.renderLoading();
+    render() {
+        if (this.state.error) return this.renderError();
+        if (!this.state.isLoaded) return this.renderLoading();
         return this.renderData();
     }
-    renderData(){
+    renderData() {
         return (
-            <div className="row telegram"  id='telegram'>
-               <img src={Bot} alt="alt"/>
-               <div className="telegram-body">
-                   <h2 className="telegram-title" >Свяжитесь с нами</h2>
-                   <form>
+            <div className="row telegram" id='telegram'>
+                <img src={Bot} alt="bot icon" />
+                <div className="telegram-body">
+                    <h2 className="telegram-title">Contact Us</h2>
+                    <form>
                         <input type="text" name="name"
-                               onChange={this.onChange.bind(this) }
-                               placeholder="Введите Ваше имя"
-                               className="form-control"/>
+                            onChange={this.onChange.bind(this)}
+                            placeholder="Enter your name"
+                            className="form-control" />
                         <input type="text" name="tel"
-                               onChange={this.onChange.bind(this) }
-                               placeholder="Введите Ваш телефон"
-                               className="form-control"/>
+                            onChange={this.onChange.bind(this)}
+                            placeholder="Enter your phone number"
+                            className="form-control" />
                         <textarea name="body"
-                                  onChange={this.onChange.bind(this) }
-                                  className="form-control"
-                                  placeholder="Ваше сообщение" />
+                            onChange={this.onChange.bind(this)}
+                            className="form-control"
+                            placeholder="Your message" />
                         <div className='btn-div'>
-                            <button type="button" onClick={this.send.bind(this) }
-                                    className="btn">Отправить</button>
+                            <button type="button" onClick={this.send.bind(this)}
+                                className="btn">Send</button>
                         </div>
                     </form>
                 </div>
-
-              </div>
+            </div>
         );
     }
-     renderLoading(){
+    renderLoading() {
         return (
             <div className="d-flex justify-content-center">
                 <div className="spinner-border" role="status">
@@ -88,7 +87,7 @@ export  default class TelegramBot extends React.Component {
             </div>
         )
     }
-    renderError(){
+    renderError() {
         return (
             <div className="alert alert-danger" role="alert">
                 Error: {this.state.error.message}

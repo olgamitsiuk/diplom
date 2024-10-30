@@ -21,7 +21,6 @@ export default class SliderPopular extends Component {
                 console.log(res)
                 this.setState({
                     products: res,
-
                     isLoading: false
                 });
 
@@ -90,7 +89,7 @@ export default class SliderPopular extends Component {
 
         return (
             <div className='slider-small'>
-                <h1>Популярные товары</h1>
+                <h1>Popular Products</h1>
                 <Slider {...settings}>
                     {products.map(product => (
                         <div key={product._id}>
