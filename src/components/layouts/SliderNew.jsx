@@ -2,33 +2,52 @@ import React, { Component } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import {getNewProducts} from '../../api';
-import {ProductCard} from "../product/productCard/ProductCard";
+import { getNewProducts } from '../../api';
+import { ProductCard } from "../product/productCard/ProductCard";
 
 export default class SliderNew extends Component {
     constructor(props) {
         super(props);
         this.state = {
             products: [],
+            isLoading: true
         }
     }
+
     componentDidMount() {
-        getNewProducts().then(res => {
-            this.setState({products: res});
-            //console.log(res)
-        })
-            .catch(err =>
-                console.log(err))
+        getNewProducts()
+            .then(res => {
+                this.setState({
+                    products: res,
+                    isLoading: false
+                });
+                // console.log('Products loaded:', res);
+            })
+            .catch(err => {
+                console.error('Error loading products:', err);
+                this.setState({ isLoading: false });
+            });
     }
+
     render() {
+        const { products, isLoading } = this.state;
+
+        if (isLoading) {
+            return <div>Loading...</div>;
+        }
+
+        if (!products || products.length === 0) {
+            return <div>No products available</div>;
+        }
+
         const settings = {
             dots: true,
             arrows: true,
-            infinite: true,
+            infinite: products.length > 4,
             autoplay: false,
             autoplaySpeed: 4000,
             speed: 1000,
-            slidesToShow: 4,
+            slidesToShow: Math.min(4, products.length),
             slidesToScroll: 1,
             initialSlide: 0,
             adaptiveHeight: true,
@@ -36,27 +55,25 @@ export default class SliderNew extends Component {
                 {
                     breakpoint: 1200,
                     settings: {
-                        slidesToShow: 3,
+                        slidesToShow: Math.min(3, products.length),
                         slidesToScroll: 1,
-                        infinite: true,
+                        infinite: products.length > 3,
                         dots: true
                     }
                 },
                 {
                     breakpoint: 992,
                     settings: {
-                        slidesToShow: 3,
+                        slidesToShow: Math.min(3, products.length),
                         slidesToScroll: 1,
-
                     }
                 },
                 {
                     breakpoint: 767,
                     settings: {
-                        slidesToShow: 2,
+                        slidesToShow: Math.min(2, products.length),
                         slidesToScroll: 1
                     }
-
                 },
                 {
                     breakpoint: 575,
@@ -64,19 +81,19 @@ export default class SliderNew extends Component {
                         slidesToShow: 1,
                         slidesToScroll: 1
                     }
-
                 }
             ]
         };
 
         return (
             <div className='slider-small'>
-            <h1>Новинки</h1>
+                <h1>Новинки</h1>
                 <Slider {...settings}>
-                    { this.state.products.map(product =>
-                        <ProductCard key={product._id} product={product}/>
-                        )
-                    }
+                    {products.map(product => (
+                        <div key={product._id}>
+                            <ProductCard product={product} />
+                        </div>
+                    ))}
                 </Slider>
             </div>
         );

@@ -2,10 +2,13 @@
   "name": "front",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
   "dependencies": {
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^11.2.7",
-    "@testing-library/user-event": "^12.8.3",
     "bootstrap-icons": "^1.7.2",
     "jquery": "^3.6.0",
     "moment": "^2.29.1",
@@ -17,14 +20,13 @@
     "react-scripts": "5.0.0",
     "react-scroll": "^1.8.4",
     "react-slick": "^0.28.1",
-    "slick-carousel": "^1.8.1",
-    "web-vitals": "^1.1.2"
+    "slick-carousel": "^1.8.1"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^11.2.7",
+    "@testing-library/user-event": "^12.8.3",
+    "web-vitals": "^1.1.2"
   },
   "eslintConfig": {
     "extends": [
