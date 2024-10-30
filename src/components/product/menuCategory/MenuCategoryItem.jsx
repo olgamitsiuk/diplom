@@ -2,11 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export function MenuCategoryItem(props) {
-    // const [isCatShow, setIsCatShow] = useState(false);
-
-    // const handleCatShow = () => {
-    //     setIsCatShow(!isCatShow);
-    // }
 
     const handleMouseEnter = () => {
         props.setActiveCategory(props.item.nameStr);

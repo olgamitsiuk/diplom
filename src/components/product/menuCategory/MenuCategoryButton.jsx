@@ -26,10 +26,10 @@ export function MenuCategoryButton() {
 
     return (
         <div className='menu-btn-group' ref={menuRef}>
-            <button type="button" className="btn btn-danger btn-menu" onClick={handleMenuShow} >
+            <button type="button" className="btn btn-danger btn-menu" onClick={handleMenuShow}>
                 {isMenuShow
                     ? <i className="bi bi-x-lg"></i>
-                    : <i className="bi bi-list"></i>} <span>Категории</span>
+                    : <i className="bi bi-list"></i>} <span>Categories</span>
             </button>
             {isMenuShow &&
                 (<MenuCategoriesList close={hideMenu} />)

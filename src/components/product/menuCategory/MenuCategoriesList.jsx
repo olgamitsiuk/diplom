@@ -16,7 +16,7 @@ export function MenuCategoriesList(props) {
 
     let key = 0;
     return (
-        <ul className='categories-list' key="category_list"  >
+        <ul className='categories-list' key="category_list">
             {categories.map(category =>
                 <MenuCategoryItem
                     key={"category_" + (key++)}
@@ -28,10 +28,10 @@ export function MenuCategoriesList(props) {
             )}
             <hr />
             <li className='phone-adaptive'>+38 (050) 194 51 16</li>
-            <li><Link to='/delivery' className='menu-header-adaptive'> Доставка и оплата</Link></li>
-            <li><Link to='/blog' className='menu-header-adaptive'>Блог</Link></li>
-            <li><Link to='/contacts' className='menu-header-adaptive'>Контакты</Link></li>
-            <li><Link to='product/sale' className='menu-header-adaptive'>Акции</Link></li>
+            <li><Link to='/delivery' className='menu-header-adaptive'>Delivery and Payment</Link></li>
+            <li><Link to='/blog' className='menu-header-adaptive'>Blog</Link></li>
+            <li><Link to='/contacts' className='menu-header-adaptive'>Contacts</Link></li>
+            <li><Link to='product/sale' className='menu-header-adaptive'>Sales</Link></li>
         </ul>
     );
 }

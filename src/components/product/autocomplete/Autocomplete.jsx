@@ -18,7 +18,7 @@ export function Autocomplete() {
         getAutoComplete(searchString)
             .then(res => {
                 setItems(res);
-                if (items.length > 0) {
+                if (res.length > 0) { // Changed from items.length to res.length
                     setSearchShow(true);
                 }
             })
@@ -29,18 +29,7 @@ export function Autocomplete() {
             })
 
     }, [searchString]);
-    // console.log(searchString);
 
-    // useEffect(() => {
-    //     let inputSearch = document.getElementById('search-input');
-    //     if (isSearchShow) {
-    //         inputSearch.style.borderBottomLeftRadius = '0';
-    //         inputSearch.style.borderBottomRightRadius = '0';
-    //     } else {
-    //         inputSearch.style.borderBottomLeftRadius = '10px';
-    //         inputSearch.style.borderBottomRightRadius = '10px';
-    //     }
-    // }, [isSearchShow]);
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -76,7 +65,7 @@ export function Autocomplete() {
                     value={searchString}
                     onChange={onChange}
                     type="text"
-                    placeholder="Поиск..."
+                    placeholder="Search..."
                 />
                 <i className="bi bi-x-lg close" onClick={handleClose}></i>
                 <Link to={`/search/${searchString}`} onClick={handleClose}><i className="bi bi-search"></i></Link>
