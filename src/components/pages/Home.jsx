@@ -9,7 +9,7 @@ import TelegramBot from "../layouts/TelegramBot";
 
 export function Home() {
 
-  console.log('Home component rendering'); // Проверим рендеры Home
+  // console.log('Home component rendering'); // Проверим рендеры Home
 
 
   return (<>
