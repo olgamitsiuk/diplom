@@ -18,7 +18,7 @@ export default class SliderPopular extends Component {
     componentDidMount() {
         getPopularProducts()
             .then(res => {
-                console.log(res)
+                // console.log(res)
                 this.setState({
                     products: res,
                     isLoading: false

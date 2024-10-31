@@ -11,170 +11,120 @@ export default class UserContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = this.getInitialState();
-        this.UpInterval = null;
-        this.lastUpdateTime = 0;
+        this.sessionCheckInterval = null;
     }
 
     getInitialState = () => {
-        const newUser = {
+        const emptyUser = {
             name: "",
             email: "",
             password: "",
-            password_confirm: "",
             lastName: "",
             secondName: "",
             male: "",
             birthDay: "",
             phone: "",
-            language: "",
+            language: ""
         };
 
-        const savedUser = localStorage.getItem("user");
-        const savedSession = localStorage.getItem("session_id");
-
         return {
-            session_id: savedSession || null,
-            session: [],
+            currentUser: JSON.parse(localStorage.getItem("user")) || emptyUser,
+            sessionId: localStorage.getItem("session_id") || null,
             error: null,
-            isEdit: false,
-            isReg: false,
-            isLogin: !!savedSession,
-            isLoading: false,
-            user: savedUser ? JSON.parse(savedUser) : newUser
+            view: localStorage.getItem("session_id") ? 'welcome' : 'login',
+            isLoading: false
         };
     };
 
+    // Lifecycle methods
     componentDidMount() {
-        if (this.state.session_id) {
-            this.initializeSession();
+        if (this.state.sessionId) {
+            this.startSessionCheck();
         }
     }
 
     componentWillUnmount() {
-        this.clearInterval();
+        this.stopSessionCheck();
     }
 
-    clearInterval = () => {
-        if (this.UpInterval) {
-            clearInterval(this.UpInterval);
-            this.UpInterval = null;
+    // Session management
+    startSessionCheck = () => {
+        this.stopSessionCheck();
+        this.sessionCheckInterval = setInterval(this.checkSession, 30000);
+    };
+
+    stopSessionCheck = () => {
+        if (this.sessionCheckInterval) {
+            clearInterval(this.sessionCheckInterval);
+            this.sessionCheckInterval = null;
         }
     };
 
-    initializeSession = () => {
-        this.setState({ isLoading: true });
-        this.getSessionById()
-            .finally(() => this.setState({ isLoading: false }));
-        this.startSessionInterval();
-    };
-
-    startSessionInterval = () => {
-        this.clearInterval();
-        // Увеличиваем интервал до 30 секунд
-        this.UpInterval = setInterval(this.updateSessionActivity, 30000);
-    };
-
-    // API Methods
-    handleApiError = (error) => {
-        console.error('API Error:', error);
-        this.setState({ error, isLoading: false });
-    };
-
-    shouldUpdateSession = () => {
-        const now = Date.now();
-        // Проверяем, прошло ли достаточно времени с последнего обновления (минимум 25 секунд)
-        if (now - this.lastUpdateTime < 25000) {
-            return false;
-        }
-        this.lastUpdateTime = now;
-        return true;
-    };
-
-    updateSessionActivity = async () => {
-        if (!this.shouldUpdateSession()) return;
-
+    checkSession = async () => {
         try {
-            const response = await fetch(`${API_URL}user/sessionUpdate`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ _id: this.state.session_id })
-            });
+            const response = await this.makeRequest(
+                'PUT',
+                'user/sessionUpdate',
+                { _id: this.state.sessionId }
+            );
 
             if (!response.ok) {
-                throw new Error('Session update failed');
+                this.handleLogout();
             }
         } catch (error) {
-            this.handleSessionError(error);
+            this.handleLogout();
         }
     };
 
-    handleSessionError = (error) => {
-        this.clearInterval();
-        localStorage.removeItem("session_id");
-        localStorage.removeItem("user");
+    // API helpers
+    makeRequest = async (method, endpoint, body = null) => {
+        const options = {
+            method,
+            headers: { 'Content-Type': 'application/json' }
+        };
+
+        if (body) {
+            options.body = JSON.stringify(body);
+        }
+
+        return fetch(`${API_URL}${endpoint}`, options);
+    };
+
+    handleApiError = (error) => {
+        console.error('API Error:', error);
         this.setState({
-            ...this.getInitialState(),
-            error
+            error: error.message || 'An error occurred',
+            isLoading: false
         });
     };
 
-    getSessionById = async () => {
-        if (!this.state.session_id) return;
-
-        try {
-            const response = await fetch(`${API_URL}session/${this.state.session_id}`);
-            if (!response.ok) throw new Error('Session fetch failed');
-
-            const session = await response.json();
-            this.setState({ session });
-
-            if (session.length > 0 && (!this.state.user?.email || this.state.user?.email === '')) {
-                await this.getOneUser(session[0].user_id);
-            }
-        } catch (error) {
-            this.handleSessionError(error);
-        }
-    };
-
-    getOneUser = async (userId) => {
-        if (!userId) return;
-
-        try {
-            const response = await fetch(`${API_URL}users/${userId}`);
-            if (!response.ok) throw new Error('User fetch failed');
-
-            const users = await response.json();
-            if (users && users.length > 0) {
-                const currentUser = users[0];
-                this.setState({ user: currentUser });
-                localStorage.setItem("user", JSON.stringify(currentUser));
-            }
-        } catch (error) {
-            this.handleApiError(error);
-        }
-    };
-
-    handleUserLogin = async (credentials) => {
+    // User actions
+    handleLogin = async (credentials) => {
         this.setState({ isLoading: true });
         try {
-            const response = await fetch(
-                `${API_URL}user/trylogin/${credentials.email}/${credentials.password}`
+            const response = await this.makeRequest(
+                'GET',
+                `user/trylogin/${credentials.email}/${credentials.password}`
             );
-            if (!response.ok) throw new Error('Login failed');
+            const sessionId = await response.json();
 
-            const session = await response.json();
-            if (!session) {
+            if (!sessionId) {
                 throw new Error('Invalid credentials');
             }
 
-            localStorage.setItem("session_id", session);
+            // Store session and start monitoring
+            localStorage.setItem("session_id", sessionId);
             this.setState({
-                session_id: session,
-                isLogin: true,
+                sessionId,
+                currentUser: credentials,
+                view: 'welcome',
                 error: null
             });
 
-            this.initializeSession();
+            // Get full user data
+            await this.fetchUserData();
+            this.startSessionCheck();
+
         } catch (error) {
             this.handleApiError(error);
         } finally {
@@ -182,47 +132,81 @@ export default class UserContainer extends React.Component {
         }
     };
 
-    handleUserLogout = async () => {
+    handleLogout = async () => {
         this.setState({ isLoading: true });
         try {
-            const response = await fetch(`${API_URL}user/sessionDelete`, {
-                method: 'DELETE',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ _id: this.state.session_id })
-            });
-
-            if (!response.ok) throw new Error('Logout failed');
-
-            this.clearInterval();
+            if (this.state.sessionId) {
+                await this.makeRequest(
+                    'DELETE',
+                    'user/sessionDelete',
+                    { _id: this.state.sessionId }
+                );
+            }
+        } catch (error) {
+            console.error('Logout error:', error);
+        } finally {
+            this.stopSessionCheck();
             localStorage.removeItem("session_id");
             localStorage.removeItem("user");
-
             this.setState(this.getInitialState());
-        } catch (error) {
-            this.handleApiError(error);
         }
     };
 
-    handleUserUpdate = async (userData) => {
-        if (!userData || !userData.email) return;
-
+    handleRegistration = async (userData) => {
         this.setState({ isLoading: true });
         try {
-            const response = await fetch(`${API_URL}users`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(userData)
-            });
+            // Check if email exists
+            const checkResponse = await this.makeRequest(
+                'GET',
+                `user/testbyemail/${userData.email}`
+            );
+            const emailExists = await checkResponse.text();
 
-            if (!response.ok) throw new Error('Update failed');
+            if (emailExists === "true") {
+                throw new Error('Email already exists');
+            }
+
+            // Create user
+            const createResponse = await this.makeRequest(
+                'POST',
+                'users',
+                userData
+            );
+
+            if (!createResponse.ok) {
+                throw new Error('Registration failed');
+            }
+
+            this.setState({ view: 'login' });
+            alert('Registration successful! Please log in.');
+
+        } catch (error) {
+            this.handleApiError(error);
+        } finally {
+            this.setState({ isLoading: false });
+        }
+    };
+
+    handleUpdateUser = async (userData) => {
+        this.setState({ isLoading: true });
+        try {
+            const response = await this.makeRequest(
+                'PUT',
+                'users',
+                userData
+            );
+
+            if (!response.ok) {
+                throw new Error('Update failed');
+            }
 
             this.setState({
-                user: userData,
-                isEdit: false,
-                isLogin: true
+                currentUser: userData,
+                view: 'welcome'
             });
 
             localStorage.setItem("user", JSON.stringify(userData));
+
         } catch (error) {
             this.handleApiError(error);
         } finally {
@@ -230,70 +214,102 @@ export default class UserContainer extends React.Component {
         }
     };
 
-    handleChange = (event) => {
+    fetchUserData = async () => {
+        try {
+            const sessionResponse = await this.makeRequest(
+                'GET',
+                `session/${this.state.sessionId}`
+            );
+            const sessionData = await sessionResponse.json();
+
+            if (sessionData.length > 0) {
+                const userResponse = await this.makeRequest(
+                    'GET',
+                    `users/${sessionData[0].user_id}`
+                );
+                const userData = await userResponse.json();
+
+                if (userData.length > 0) {
+                    const currentUser = userData[0];
+                    this.setState({ currentUser });
+                    localStorage.setItem("user", JSON.stringify(currentUser));
+                }
+            }
+        } catch (error) {
+            this.handleApiError(error);
+        }
+    };
+
+    // Form handling
+    handleInputChange = (event) => {
         const { name, value } = event.target;
         this.setState(prevState => ({
-            user: {
-                ...prevState.user,
+            currentUser: {
+                ...prevState.currentUser,
                 [name]: value
             }
         }));
     };
 
-    // Render Methods
-    renderLoading = () => <Preloader />;
+    setView = (view) => {
+        this.setState({ view });
+    };
+
+    // Render methods
+    renderCurrentView = () => {
+        const { view, currentUser, isLoading, error } = this.state;
+
+        if (isLoading) return <Preloader />;
+        if (error) return this.renderError();
+
+        switch (view) {
+            case 'register':
+                return (
+                    <RegisterForm
+                        change={this.handleInputChange}
+                        doOpenLoginForm={() => this.setView('login')}
+                        tryReg={() => this.handleRegistration(currentUser)}
+                    />
+                );
+            case 'login':
+                return (
+                    <LoginForm
+                        change={this.handleInputChange}
+                        doOpenRegForm={() => this.setView('register')}
+                        tryLogin={() => this.handleLogin(currentUser)}
+                    />
+                );
+            case 'edit':
+                return (
+                    <EditForm
+                        user={currentUser}
+                        change={this.handleInputChange}
+                        doCloseEditForm={() => this.setView('welcome')}
+                        doSaveEditForm={() => this.handleUpdateUser(currentUser)}
+                    />
+                );
+            case 'welcome':
+                return (
+                    <Welcome
+                        user={currentUser}
+                        change={this.handleInputChange}
+                        doOpenEditForm={() => this.setView('edit')}
+                        doLogout={this.handleLogout}
+                        delete={this.handleLogout}
+                    />
+                );
+            default:
+                return null;
+        }
+    };
 
     renderError = () => (
         <div className="alert alert-danger" role="alert">
-            {this.state.error?.message || 'An error occurred. Please try again.'}
+            {this.state.error}
         </div>
     );
 
-    renderRegisterForm = () => (
-        <RegisterForm
-            change={this.handleChange}
-            doOpenLoginForm={() => this.setState({ isReg: false })}
-            tryReg={() => this.handleUserUpdate(this.state.user)}
-        />
-    );
-
-    renderLoginForm = () => (
-        <LoginForm
-            change={this.handleChange}
-            doOpenRegForm={() => this.setState({ isReg: true })}
-            tryLogin={() => this.handleUserLogin(this.state.user)}
-        />
-    );
-
-    renderWelcome = () => (
-        <Welcome
-            user={this.state.user}
-            session_id={this.state.session_id}
-            change={this.handleChange}
-            doOpenEditForm={() => this.setState({ isLogin: false, isEdit: true })}
-            doLogout={this.handleUserLogout}
-            delete={this.handleUserLogout}
-        />
-    );
-
-    renderEditForm = () => (
-        <EditForm
-            session_id={this.state.session_id}
-            user={this.state.user}
-            change={this.handleChange}
-            doCloseEditForm={() => this.setState({ isEdit: false, isLogin: true })}
-            doSaveEditForm={() => this.handleUserUpdate(this.state.user)}
-        />
-    );
-
     render() {
-        const { error, isReg, isEdit, isLogin, isLoading } = this.state;
-
-        if (isLoading) return this.renderLoading();
-        if (error) return this.renderError();
-        if (isReg) return this.renderRegisterForm();
-        if (isEdit) return this.renderEditForm();
-        if (isLogin) return this.renderWelcome();
-        return this.renderLoginForm();
+        return this.renderCurrentView();
     }
 }
