@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from "react-router-dom";
-import { getCategories } from "../../api";
+import { CATEGORIES } from "../constants/categories";
 import Fb from '../img/fb.png';
 import Telegram from '../img/telegram.png';
 import Instagram from '../img/instagram.png';
@@ -8,28 +8,15 @@ import Youtube from '../img/youtube.png';
 import '../css/footer.css'
 
 export function Footer() {
-    const [categories, setCategories] = useState([]);
-
-    useEffect(() => {
-        getCategories()
-            .then(res => {
-                setCategories(res);
-            })
-            .catch(err =>
-                console.log(err))
-    },
-        []);
-
-    let key = 0;
-
     return <footer>
         <ul className='footer-category'>
             <li>Categories</li>
-            {categories.map(category =>
-                <li key={"category_" + (key++)} item={category}>
+            {CATEGORIES.map((category, index) =>
+                <li key={`category_${index}`}>
                     <Link to={`/category/${category.nameStr}`}>{category.name}</Link>
                 </li>
-            )}</ul>
+            )}
+        </ul>
         <ul>
             <li>About Us</li>
             <li><Link to='/contacts'>Contacts</Link></li>
@@ -55,6 +42,5 @@ export function Footer() {
             <li><a href="tel:+380501945116">(050) 19 45 116</a></li>
             <li><a href="tel:+380501945116">(050) 19 45 116</a></li>
         </ul>
-
     </footer>
 }

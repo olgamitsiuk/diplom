@@ -1,47 +1,56 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from "react-router-dom";
 import { getProductsByCategoryName } from '../../api';
-import { getCategoryByName } from '../../api';
+import { findCategoryByName } from '../constants/categories';
 import { CategoryHeader } from "../layouts/CategoryHeader";
 import { CategoryProductsList } from "../layouts/CategoryProductsList";
 import '../css/category.css';
 import { Preloader } from "../layouts/Preloader";
 
 export function Category() {
-    const [category, setCategory] = useState({});
     const [products, setProducts] = useState([]);
-    const [isLoad, setIsLoad] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const { categoryName } = useParams();
-
     const navigate = useNavigate();
+
+    const category = findCategoryByName(categoryName);
+
+    useEffect(() => {
+        if (!category) {
+            navigate('/');
+        }
+    }, [category, navigate]);
+
+    useEffect(() => {
+        if (category) {
+            setIsLoading(true);
+            getProductsByCategoryName(categoryName)
+                .then(res => {
+                    setProducts(res);
+                })
+                .catch(err => {
+                    console.error('Error loading products:', err);
+                })
+                .finally(() => {
+                    setIsLoading(false);
+                });
+        }
+    }, [categoryName, category]);
+
     const goBack = () => navigate(-1);
 
-    useEffect(() => {
-        getCategoryByName(categoryName).then(res => {
-            setCategory(res);
-            setIsLoad(true);
-        })
-            .catch(err =>
-                console.log(err))
-    }, [categoryName]);
+    if (isLoading) {
+        return <Preloader />;
+    }
 
-    useEffect(() => {
-        getProductsByCategoryName(categoryName).then(res => {
-            setProducts(res);
-            setIsLoad(true);
-        })
-            .catch(err =>
-                console.log(err))
-    }, [categoryName]);
+    if (!category) {
+        return null;
+    }
 
-    if (!isLoad) return (
-        <Preloader />
+    return (
+        <div className='container'>
+            <CategoryHeader category={category} goBack={goBack} />
+            <CategoryProductsList products={products} />
+        </div>
     );
-
-    return <div className='container'>
-        <CategoryHeader category={category} goBack={goBack} />
-        <CategoryProductsList products={products} />
-    </div>
 }
-
-

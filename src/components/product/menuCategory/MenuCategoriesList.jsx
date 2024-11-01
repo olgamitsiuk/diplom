@@ -1,25 +1,16 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { MenuCategoryItem } from "./MenuCategoryItem";
-import { getCategories } from '../../../api';
 import { Link } from "react-router-dom";
+import { CATEGORIES } from '../../constants/categories';
 
 export function MenuCategoriesList(props) {
-    const [categories, setCategories] = useState([]);
     const [activeCategory, setActiveCategory] = useState(null);
 
-    useEffect(() => {
-        getCategories().then(res => { setCategories(res); })
-            .catch(err =>
-                console.log(err))
-    },
-        []);
-
-    let key = 0;
     return (
         <ul className='categories-list' key="category_list">
-            {categories.map(category =>
+            {CATEGORIES.map((category, index) =>
                 <MenuCategoryItem
-                    key={"category_" + (key++)}
+                    key={`category_${index}`}
                     item={category}
                     close={props.close}
                     isActive={activeCategory === category.nameStr}
