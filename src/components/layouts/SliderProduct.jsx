@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { BASE_URL } from "../../config";
 
 export default class SliderProduct extends Component {
     render() {
@@ -10,7 +11,7 @@ export default class SliderProduct extends Component {
             customPaging: function (i) {
                 return (
                     <a href="#!">
-                        <img src={"http://localhost:3001" + imgSmall[i]} alt='product thumbnail' />
+                        <img src={BASE_URL + imgSmall[i]} alt='product thumbnail' />
                     </a>
                 );
             },
@@ -29,7 +30,7 @@ export default class SliderProduct extends Component {
                 <Slider {...settings}>
                     {this.props.imgBig.map((img, index) =>
                         <div className='slide' key={`slide-img-${index}`}>
-                            <img src={"http://localhost:3001" + img} alt="product" />
+                            <img src={BASE_URL + img} alt="product" />
                         </div>
                     )}
                 </Slider>

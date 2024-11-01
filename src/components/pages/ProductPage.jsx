@@ -3,8 +3,9 @@ import React, { useEffect, useState, useContext } from "react";
 import { ShopContext } from '../../context';
 import { getProductById } from '../../api';
 import { Preloader } from "../layouts/Preloader";
-import '../css/product-page.css';
 import SliderProduct from "../layouts/SliderProduct";
+import { BASE_URL } from "../../config";
+import '../css/product-page.css';
 
 export function ProductPage() {
     const [product, setProduct] = useState({});
@@ -34,6 +35,7 @@ export function ProductPage() {
     if (!isLoad) return (
         <Preloader />
     );
+
     if (product) {
         return (
             <div className='container product-page'>
@@ -51,7 +53,7 @@ export function ProductPage() {
                                     price_action: product.price_action,
                                     price_normal: product.price_normal,
                                     model: product.model,
-                                    img: "http://localhost:3001" + product.image.big[0]
+                                    img: product.image.big[0]
                                 })
                             }
                         > </i>
@@ -70,7 +72,7 @@ export function ProductPage() {
                                     price_action: product.price_action,
                                     price_normal: product.price_normal,
                                     model: product.model,
-                                    img: "http://localhost:3001" + product.image.big[0]
+                                    img: product.image.big[0]
                                 })
                             }>
                             Add to Cart</button>

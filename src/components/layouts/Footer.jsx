@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
-import '../css/footer.css'
 import { getCategories } from "../../api";
 import Fb from '../img/fb.png';
 import Telegram from '../img/telegram.png';
 import Instagram from '../img/instagram.png';
 import Youtube from '../img/youtube.png';
+import '../css/footer.css'
 
 export function Footer() {
     const [categories, setCategories] = useState([]);
 
     useEffect(() => {
-        getCategories().then(res => { setCategories(res); })
+        getCategories()
+            .then(res => {
+                setCategories(res);
+            })
             .catch(err =>
                 console.log(err))
     },
