@@ -4,6 +4,7 @@ import '../../css/product-card.css';
 import Cart from '../../img/cart-red.png';
 import New from '../../img/new.png';
 import { ShopContext } from "../../../context";
+import { BASE_URL } from '../../../config';
 
 export function ProductCard(props) {
     const { product } = props;
@@ -34,11 +35,11 @@ export function ProductCard(props) {
                             price_action: product.price_action,
                             price_normal: product.price_normal,
                             model: product.model,
-                            img: "http://localhost:3001" + product.image.big[0]
+                            img: product.image.big[0]
                         })
                     }
                 > </i>
-                <img src={"http://localhost:3001" + product.image.big[0]} className="card-img" alt={product.name} /></div>
+                <img src={BASE_URL + product.image.big[0]} className="card-img" alt={product.name} /></div>
             <Link to={`/product/${product._id}`} className="product-card-body">
                 <p className='product-name'>{product.name}</p>
                 <p className='product-model'>{props.product.model}</p></Link>
@@ -56,7 +57,7 @@ export function ProductCard(props) {
                             price_action: product.price_action,
                             price_normal: product.price_normal,
                             model: product.model,
-                            img: "http://localhost:3001" + product.image.big[0]
+                            img: product.image.big[0]
                         })
                     }
                 /></div>

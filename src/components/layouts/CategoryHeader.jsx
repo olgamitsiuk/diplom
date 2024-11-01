@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import { Preloader } from "./Preloader";
+import { BASE_URL } from '../../config';
 
 export function CategoryHeader(props) {
 
@@ -15,7 +16,7 @@ export function CategoryHeader(props) {
                     {
                         props.category[0].subCat.map(subCat =>
                             <div key={subCat.name}><Link to={`/category/${props.category[0].nameStr}/${subCat.nameStr}`} >
-                                <img src={"http://localhost:3001" + subCat.img} alt="alt" />
+                                <img src={BASE_URL + subCat.img} alt="alt" />
                                 {subCat.name}</Link></div>)
                     }
                 </div>
