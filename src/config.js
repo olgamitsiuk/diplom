@@ -1,15 +1,5 @@
-import dotenv from 'dotenv';
-
-// Загружаем переменные окружения
-dotenv.config({
-    path: process.env.NODE_ENV === 'production'
-        ? '.env.production'
-        : '.env.development'
-});
-
-const API_URL = process.env.API_URL || "/api/";
-
-const BASE_URL = process.env.BASE_URL || "";
+const API_URL = process.env.REACT_APP_API_URL || "/api/";
+const BASE_URL = process.env.REACT_APP_BASE_URL || "";
 
 export {
     API_URL,
